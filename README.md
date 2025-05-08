@@ -1,8 +1,8 @@
-# Bootcamp #001 Qualiters Club
+# Test de API - Postman
 Criação de testes de API utilizando Postman, manual e CI/CD
 
 ## O que é
-Este repositório foi para criado para teste de API Rest com base no Bootcamp
+Este repositório foi para criado para teste de API Rest com base no [Bootcamp](https://www.udemy.com/course/dominando-postman-2023-testando-e-automatizado-apis)
 
 ## Tecnologia utilizadas
 
@@ -47,9 +47,9 @@ Documento da API: [consulte o Swagger](https://serverest.dev/#/)
 - Abra o Terminal/CMD
 - Execute a linha de comando:
 - `npm install -g newman-reporter-html`
-- newman run ServerRest.postman_collection.json -e ServerRest.postman_environment.json -r cli
+- `newman run ServerRest.postman_collection.json -e ServerRest.postman_environment.json -r cli`
 - Caso queria executar os testes com retorno de relatórios execute a linha de comando:
-- newman run ServerRest.postman_collection.json -e ServerRest.postman_environment.json -r htmlextra
+- `newman run ServerRest.postman_collection.json -e ServerRest.postman_environment.json -r htmlextra`
 
 ### Report
 Caso utilize o Newman com HTMLEXTRA, os relatórios se encontram no diretório **"..\..\ServerRestAPI\newman"** do local da execução dos teste.
