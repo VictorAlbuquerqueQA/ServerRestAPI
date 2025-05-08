@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "4cc5672a-07bf-424e-abd1-bfc57057cf4b",
 		"name": "ServerRest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "44732833"
 	},
 	"item": [
@@ -21,7 +21,8 @@
 									"eval(pm.environment.get(\"statusCodeTest\"))(statusCode);\r",
 									"\r",
 									"pm.globals.set(\"userName\", pm.response.json().results[0].name.first);\r",
-									"pm.globals.set(\"userEmail\", pm.response.json().results[0].email);\r",
+									"let email = pm.response.json().results[0].name.first.toLowerCase()\r",
+									"pm.globals.set(\"userEmail\", email+\"@gmail.com\")\r",
 									"pm.globals.set(\"userPassword\", pm.response.json().results[0].login.password);"
 								],
 								"type": "text/javascript",
@@ -32,16 +33,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{baseURLMassTest}}/api/",
-							"host": [
-								"{{baseURLMassTest}}"
-							],
-							"path": [
-								"api",
-								""
-							]
-						}
+						"url": "{{baseURLMassTest}}/api/"
 					},
 					"response": []
 				},
@@ -52,11 +44,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.globals.unset(\"schema\");\r",
-									"pm.globals.unset(\"userName\");\r",
-									"pm.globals.unset(\"userEmail\");\r",
-									"pm.globals.unset(\"userPassword\");\r",
-									"\r",
 									"pm.globals.set(\"schema\", {\r",
 									"  \"type\": \"object\",\r",
 									"  \"properties\": {\r",
@@ -69,13 +56,9 @@
 									"  },\r",
 									"  \"required\": [\r",
 									"    \"message\",\r",
-									"    //\"_id\"\r",
+									"    \"_id\"\r",
 									"  ]\r",
-									"});\r",
-									"\r",
-									"pm.globals.set(\"\", pm.iterationData.get(\"userName\"));\r",
-									"pm.globals.set(\"\", pm.iterationData.get(\"userEmail\"));\r",
-									"pm.globals.set(\"\", pm.iterationData.get(\"userPassword\"));"
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -140,15 +123,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseURL}}/usuarios",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"usuarios"
-							]
-						}
+						"url": "{{baseURL}}/usuarios"
 					},
 					"response": []
 				},
@@ -214,16 +189,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseURL}}/usuarios/{{userID}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"usuarios",
-								"{{userID}}"
-							]
-						}
+						"url": "{{baseURL}}/usuarios/{{userID}}"
 					},
 					"response": []
 				},
@@ -275,16 +241,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseURL}}/usuarios/{{userID}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"usuarios",
-								"{{userID}}"
-							]
-						}
+						"url": "{{baseURL}}/usuarios/{{userID}}"
 					},
 					"response": []
 				},
@@ -350,75 +307,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseURL}}/usuarios/{{userID}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"usuarios",
-								"{{userID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Usuario",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"var statusCode = pm.response.code;\r",
-									"eval(pm.environment.get(\"statusCodeTest\"))(statusCode);\r",
-									"\r",
-									"pm.test(\"Resposta contém JSON válido\", function () {\r",
-									"    pm.response.to.have.jsonBody();\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Validar mensagens de update\", function () {\r",
-									"    if (statusCode === 200) {\r",
-									"        pm.expect(jsonData.message).to.eql(\"Registro excluído com sucesso\");\r",
-									"    } else if (statusCode === 400) {\r",
-									"        pm.expect(jsonData.message).to.eql(\"Não é permitido excluir usuário com carrinho cadastrado\");\r",
-									"    } else {\r",
-									"        pm.expect.fail(\"Código HTTP inesperado: \" + statusCode);\r",
-									"    }\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Tempo de resposta está dentro do esperado\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/usuarios/{{userID}}",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"usuarios",
-								"{{userID}}"
-							]
-						}
+						"url": "{{baseURL}}/usuarios/{{userID}}"
 					},
 					"response": []
 				}
@@ -470,15 +359,57 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseURL}}/login",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"login"
-							]
+						"url": "{{baseURL}}/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var statusCode = pm.response.code;\r",
+									"eval(pm.environment.get(\"statusCodeTest\"))(statusCode);\r",
+									"\r",
+									"pm.test(\"Resposta contém JSON válido\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar mensagens de update\", function () {\r",
+									"    if (statusCode === 200) {\r",
+									"        pm.expect(jsonData.message).to.eql(\"Registro excluído com sucesso\");\r",
+									"    } else if (statusCode === 400) {\r",
+									"        pm.expect(jsonData.message).to.eql(\"Não é permitido excluir usuário com carrinho cadastrado\");\r",
+									"    } else {\r",
+									"        pm.expect.fail(\"Código HTTP inesperado: \" + statusCode);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tempo de resposta está dentro do esperado\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/usuarios/{{userID}}"
 					},
 					"response": []
 				}
